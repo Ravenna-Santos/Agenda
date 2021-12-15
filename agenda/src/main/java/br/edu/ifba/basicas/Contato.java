@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+//import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,29 +14,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+//erro nos commits das classes básicas???  editado manualmente
 
-
+@Entity
 public class Contato implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int id;
 	private String nome;
 	private String observacao;
 	
-
+	@OneToOne (cascade=CascadeType.PERSIST) //um pra um
 	private Endereco endereco;
 	
-
+	@ManyToOne // muitos para um
+	@JoinColumn (name ="categoria_id", nullable=false) // relaciona com a tabela categoria pelo id
 	private Categoria categoria;
 	
-
+	
+	@OneToMany (cascade=CascadeType.PERSIST)
+	@JoinColumn (name ="contato_id") // relaciona com a tabela contato pelo id
 	private List<Telefone> telefones;
-
+	
+	
 	public Contato() {}
 	
 	public Contato( String nome, String observacao, Endereco endereco, Categoria categoria) {
