@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-//teste
+
+// erro nos commits das classes básicas??? editado manualmente
+@Entity
 public class Categoria implements Serializable {
 
 	
@@ -23,13 +25,15 @@ public class Categoria implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int id;
 	private String nome;
 	private String descricao;
 	
 
+	@OneToMany (mappedBy="categoria", cascade=CascadeType.ALL)
 	private List<Contato> contato;
 	
 	public Categoria() {}
